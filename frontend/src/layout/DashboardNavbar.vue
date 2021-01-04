@@ -8,7 +8,7 @@
     <div
       class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
     />
-    <form
+    <!-- <form
       class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"
     >
       <div class="form-group mb-0">
@@ -20,7 +20,7 @@
         >
         </base-input>
       </div>
-    </form>
+    </form> -->
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item dropdown">
         <base-dropdown class="nav-link pr-0">
@@ -61,8 +61,8 @@ export default {
 
       req.onsuccess = (result) => {
         console.log(result.target.result[0].value);
-        vm.username=result.target.result[0].value.displayName;
-        vm.photoURL=result.target.result[0].value.photoURL;
+        vm.username = result.target.result[0].value.displayName;
+        vm.photoURL = result.target.result[0].value.photoURL;
       };
 
       // Enable our buttons once the IndexedDB instance is available.

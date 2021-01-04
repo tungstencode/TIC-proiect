@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive tablesorter">
       <base-table thead-classes="thead-light" :data="tableData">
         <template slot="columns">
           <th>Name</th>
@@ -109,7 +109,7 @@
     <modal
       :show.sync="sales"
       body-classes="p-0"
-      modal-classes="modal-dialog-centered modal-sm"
+      modal-classes="modal-dialog-centered modal-lg"
     >
       <card
         type="secondary"

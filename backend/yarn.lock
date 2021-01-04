@@ -1051,6 +1051,11 @@
   "resolved" "https://registry.npmjs.org/extend/-/extend-3.0.2.tgz"
   "version" "3.0.2"
 
+"faker@^5.1.0":
+  "integrity" "sha512-RrWKFSSA/aNLP0g3o2WW1Zez7/MnMr7xkiZmoCfAGZmdkDQZ6l2KtuXHN5XjdvpRjDl8+3vf+Rrtl06Z352+Mw=="
+  "resolved" "https://registry.npmjs.org/faker/-/faker-5.1.0.tgz"
+  "version" "5.1.0"
+
 "fast-text-encoding@^1.0.0":
   "integrity" "sha512-5rQdinSsycpzvAoHga2EDn+LRX1d5xLFsuNG0Kg61JrAT/tASXcLL0nf/33v+sAxlQcfYmWbTURa1mmAf55jGw=="
   "resolved" "https://registry.npmjs.org/fast-text-encoding/-/fast-text-encoding-1.0.2.tgz"
