@@ -66,7 +66,6 @@ export default {
       };
 
       // Enable our buttons once the IndexedDB instance is available.
-      vm.username = "Eu";
     };
   },
   data() {
