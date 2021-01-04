@@ -1,9 +1,14 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const authMiddleware = require("./configs/auth-middleware");
 const customerRouter = require("./routes/customer-route");
+const salesRouter = require("./routes/sales-route");
 const app = express();
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const books = [
   {
@@ -27,6 +32,7 @@ const books = [
 
 // app.use("/", authMiddleware);
 app.use("/customers", customerRouter)
+app.use("/sales", salesRouter)
 
 app.get("/books", (request, response) => {
   return response.send({ books });

@@ -4,43 +4,44 @@ const authMiddleware = require("../configs/auth-middleware");
 const firebase = require("../firebase/admin");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const db = firebase.firestore();
-    const customersRef = db.collection("customers");
+    const salesRef = db.collection("sales");
 
-    const snapshot = await customersRef.get();
+    const snapshot = await salesRef
+      .where("customerId", "==", req.params.id)
+      .get();
 
-    const customersArray = [];
+    const salesArray = [];
 
     snapshot.forEach((doc) => {
-      let customer = doc.data();
-      customer.id = doc.id;
-      customersArray.push(customer);
+      salesArray.push(doc.data());
     });
 
-    res.status(200).json(customersArray);
+    res.status(200).json(salesArray);
   } catch (err) {
-    res.status(500).json({ message: "server error" });
+    res.status(500).json({ message: err.message });
   }
 });
 
 router.put("/:id", authMiddleware, async (req, res) => {
   try {
-    const { name, phone } = req.body;
-
     const { id } = req.params;
 
-    if (!name || !phone || !id) {
+    const { productName, price, quantity } = req.body;
+
+    if (!id || !productName || !price || !quantity) {
       throw new Error("data missing");
     }
     const db = firebase.firestore();
 
-    const docRef = await db.collection("customers").doc(id);
+    const docRef = db.collection("sales").doc(id);
 
     await docRef.set({
-      name,
-      phone,
+      productName,
+      price,
+      quantity,
     });
 
     res.status(202).json({ message: "accepted" });
@@ -58,7 +59,7 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     }
     const db = firebase.firestore();
 
-    await db.collection("customers").doc(id).delete();
+    const res = await db.collection("sales").doc(id).delete();
 
     res.status(202).json({ message: "deleted" });
   } catch (error) {
@@ -66,19 +67,24 @@ router.delete("/:id", authMiddleware, async (req, res) => {
   }
 });
 
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/:customerId", authMiddleware, async (req, res) => {
   try {
+    const { productName, price, quantity } = req.body;
+
+    const { customerId } = req.params;
+
+    if (!customerId || !productName || !price || !quantity) {
+      throw new Error("data missing");
+    }
     const db = firebase.firestore();
 
-    const { name, phone } = req.body;
+    const docRef = db.collection("sales").doc();
 
-    if (!name || !phone) {
-      throw new Error("name or phone missing");
-    }
-
-    await db.collection("customers").add({
-      name,
-      phone,
+    await docRef.set({
+      customerId,
+      productName,
+      price,
+      quantity,
     });
 
     res.status(202).json({ message: "created" });

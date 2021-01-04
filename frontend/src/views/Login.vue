@@ -76,6 +76,7 @@
 </template>
 <script>
 import { auth, firebase } from "../configs/firebase";
+import Axios from "../configs/axios";
 
 export default {
   name: "login",
@@ -92,8 +93,11 @@ export default {
           if (token) {
             // 5 - put the token at localStorage (We'll use this to make requests)
             localStorage.setItem("@token", token);
+
+            Axios.defaults.headers.common["authorization"] = "Bearer " + token;
+
             // 6 - navigate user to the book list
-            this.$router.push('dashboard');
+            this.$router.push("dashboard");
           }
         },
         function(error) {

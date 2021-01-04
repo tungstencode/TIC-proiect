@@ -12,7 +12,7 @@
                             <span class="btn-inner--text">Github</span>
                         </a> -->
             <a
-              v-on:clicl="googleSignUp"
+              v-on:click="googleSignUp"
               href="#"
               class="btn btn-neutral btn-icon"
             >
@@ -87,19 +87,21 @@ export default {
   name: "register",
   methods: {
     async googleSignUp() {
-      // 1 - init Google Auth Provider
+     // 1 - init Google Auth Provider
       const provider = new firebase.auth.GoogleAuthProvider();
       // 2 - create the popup signIn
-      await auth.signInWithRedirect(provider).then(
-        async (result) => {
-          console.log(result);
+      await auth.signInWithPopup(provider).then(
+        async () => {
           // 3 - pick the result and store the token
           const token = await auth.currentUser.getIdToken(true);
           // 4 - check if have token in the current user
           if (token) {
             // 5 - put the token at localStorage (We'll use this to make requests)
-            localStorage.setItem("@token", token);
+            // localStorage.setItem("@token", token);
+
+
             // 6 - navigate user to the book list
+            this.$router.push("login");
           }
         },
         function(error) {
